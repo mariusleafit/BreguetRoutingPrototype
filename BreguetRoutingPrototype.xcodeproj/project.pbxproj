@@ -78,25 +78,113 @@
 		29F7D8451876BE7900FF997A /* BreguetRoutingPrototype */ = {
 			isa = PBXGroup;
 			children = (
+				29F7D85C1876C37200FF997A /* core */,
+				29F7D85E1876C37D00FF997A /* views */,
+				29F7D85D1876C37700FF997A /* resources */,
+				29F7D85F1876C38200FF997A /* config */,
 				29F7D84E1876BE7900FF997A /* AppDelegate.h */,
 				29F7D84F1876BE7900FF997A /* AppDelegate.m */,
-				29F7D8461876BE7900FF997A /* Supporting Files */,
+				29F7D84B1876BE7900FF997A /* main.m */,
 			);
 			path = BreguetRoutingPrototype;
 			sourceTree = "<group>";
 		};
-		29F7D8461876BE7900FF997A /* Supporting Files */ = {
+		29F7D85C1876C37200FF997A /* core */ = {
+			isa = PBXGroup;
+			children = (
+				29F7D8631876C41400FF997A /* models */,
+				29F7D8621876C40900FF997A /* queries */,
+				29F7D8611876C3FD00FF997A /* system */,
+			);
+			name = core;
+			sourceTree = "<group>";
+		};
+		29F7D85D1876C37700FF997A /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				29F7D8601876C3BD00FF997A /* images */,
+			);
+			name = resources;
+			sourceTree = "<group>";
+		};
+		29F7D85E1876C37D00FF997A /* views */ = {
+			isa = PBXGroup;
+			children = (
+				29F7D8671876C44900FF997A /* shared */,
+				29F7D8661876C43200FF997A /* controllers */,
+				29F7D8651876C42B00FF997A /* customcells */,
+				29F7D8641876C42300FF997A /* nibs */,
+			);
+			name = views;
+			sourceTree = "<group>";
+		};
+		29F7D85F1876C38200FF997A /* config */ = {
 			isa = PBXGroup;
 			children = (
 				29F7D8471876BE7900FF997A /* BreguetRoutingPrototype-Info.plist */,
 				29F7D8481876BE7900FF997A /* InfoPlist.strings */,
-				29F7D84B1876BE7900FF997A /* main.m */,
 				29F7D84D1876BE7900FF997A /* BreguetRoutingPrototype-Prefix.pch */,
+			);
+			name = config;
+			sourceTree = "<group>";
+		};
+		29F7D8601876C3BD00FF997A /* images */ = {
+			isa = PBXGroup;
+			children = (
 				29F7D8511876BE7900FF997A /* Default.png */,
 				29F7D8531876BE7900FF997A /* Default@2x.png */,
 				29F7D8551876BE7900FF997A /* Default-568h@2x.png */,
 			);
-			name = "Supporting Files";
+			name = images;
+			sourceTree = "<group>";
+		};
+		29F7D8611876C3FD00FF997A /* system */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = system;
+			sourceTree = "<group>";
+		};
+		29F7D8621876C40900FF997A /* queries */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = queries;
+			sourceTree = "<group>";
+		};
+		29F7D8631876C41400FF997A /* models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = models;
+			sourceTree = "<group>";
+		};
+		29F7D8641876C42300FF997A /* nibs */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = nibs;
+			sourceTree = "<group>";
+		};
+		29F7D8651876C42B00FF997A /* customcells */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = customcells;
+			sourceTree = "<group>";
+		};
+		29F7D8661876C43200FF997A /* controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = controllers;
+			sourceTree = "<group>";
+		};
+		29F7D8671876C44900FF997A /* shared */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = shared;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -280,6 +368,7 @@
 				29F7D85B1876BE7900FF997A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
