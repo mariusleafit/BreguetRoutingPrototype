@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		29E8CDC5187AB90C00B59EC8 /* compass.png in Resources */ = {isa = PBXBuildFile; fileRef = 29E8CDC3187AB90C00B59EC8 /* compass.png */; };
+		29E8CDC6187AB90C00B59EC8 /* compass@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 29E8CDC4187AB90C00B59EC8 /* compass@2x.png */; };
+		29E8CDCD187ABB6D00B59EC8 /* flag.png in Resources */ = {isa = PBXBuildFile; fileRef = 29E8CDC7187ABB6D00B59EC8 /* flag.png */; };
+		29E8CDCE187ABB6D00B59EC8 /* flag@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 29E8CDC8187ABB6D00B59EC8 /* flag@2x.png */; };
+		29E8CDCF187ABB6D00B59EC8 /* gps.png in Resources */ = {isa = PBXBuildFile; fileRef = 29E8CDC9187ABB6D00B59EC8 /* gps.png */; };
+		29E8CDD0187ABB6D00B59EC8 /* gps@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 29E8CDCA187ABB6D00B59EC8 /* gps@2x.png */; };
+		29E8CDD1187ABB6D00B59EC8 /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 29E8CDCB187ABB6D00B59EC8 /* settings.png */; };
+		29E8CDD2187ABB6D00B59EC8 /* settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 29E8CDCC187ABB6D00B59EC8 /* settings@2x.png */; };
 		29F7D8401876BE7900FF997A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29F7D83F1876BE7900FF997A /* UIKit.framework */; };
 		29F7D8421876BE7900FF997A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29F7D8411876BE7900FF997A /* Foundation.framework */; };
 		29F7D8441876BE7900FF997A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29F7D8431876BE7900FF997A /* CoreGraphics.framework */; };
@@ -27,9 +35,29 @@
 		29F7D8791876C51300FF997A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29F7D8781876C51300FF997A /* CoreLocation.framework */; };
 		29F7D87B1876C58A00FF997A /* ArcGIS.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 29F7D87A1876C58A00FF997A /* ArcGIS.bundle */; };
 		29F7D87E1876C87300FF997A /* CustomNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29F7D87D1876C87300FF997A /* CustomNavigationController.m */; };
+		29F7D8861876CF0D00FF997A /* app_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 29F7D8841876CF0D00FF997A /* app_logo.png */; };
+		29F7D8871876CF0D00FF997A /* app_logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 29F7D8851876CF0D00FF997A /* app_logo@2x.png */; };
+		29F7D89B1876D0D700FF997A /* leafit_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 29F7D88C1876D0D700FF997A /* leafit_logo.png */; };
+		29F7D89C1876D0D700FF997A /* leafit_logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 29F7D88D1876D0D700FF997A /* leafit_logo@2x.png */; };
+		29F7D8A91876D0D700FF997A /* logo_unine_bleu.png in Resources */ = {isa = PBXBuildFile; fileRef = 29F7D89A1876D0D700FF997A /* logo_unine_bleu.png */; };
+		29F7D8AC1876D2D600FF997A /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29F7D8AB1876D2D600FF997A /* MapViewController.m */; };
+		29F7D8AE1876D2EF00FF997A /* map.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29F7D8AD1876D2EF00FF997A /* map.xib */; };
+		29F7D8B11876D3F700FF997A /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 29F7D8B01876D3F700FF997A /* Constants.m */; };
+		29F7D8B81876E65400FF997A /* Building.m in Sources */ = {isa = PBXBuildFile; fileRef = 29F7D8B51876E65400FF997A /* Building.m */; };
+		29F7D8B91876E65400FF997A /* BuildingStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 29F7D8B71876E65400FF997A /* BuildingStack.m */; };
+		29F7D8BE1876E66100FF997A /* Floor.m in Sources */ = {isa = PBXBuildFile; fileRef = 29F7D8BB1876E66100FF997A /* Floor.m */; };
+		29F7D8BF1876E66100FF997A /* Room.m in Sources */ = {isa = PBXBuildFile; fileRef = 29F7D8BD1876E66100FF997A /* Room.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		29E8CDC3187AB90C00B59EC8 /* compass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = compass.png; sourceTree = "<group>"; };
+		29E8CDC4187AB90C00B59EC8 /* compass@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "compass@2x.png"; sourceTree = "<group>"; };
+		29E8CDC7187ABB6D00B59EC8 /* flag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flag.png; sourceTree = "<group>"; };
+		29E8CDC8187ABB6D00B59EC8 /* flag@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "flag@2x.png"; sourceTree = "<group>"; };
+		29E8CDC9187ABB6D00B59EC8 /* gps.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gps.png; sourceTree = "<group>"; };
+		29E8CDCA187ABB6D00B59EC8 /* gps@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gps@2x.png"; sourceTree = "<group>"; };
+		29E8CDCB187ABB6D00B59EC8 /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
+		29E8CDCC187ABB6D00B59EC8 /* settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings@2x.png"; sourceTree = "<group>"; };
 		29F7D83C1876BE7900FF997A /* BreguetRoutingPrototype.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BreguetRoutingPrototype.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		29F7D83F1876BE7900FF997A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		29F7D8411876BE7900FF997A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -55,6 +83,24 @@
 		29F7D87A1876C58A00FF997A /* ArcGIS.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ArcGIS.bundle; sourceTree = "<group>"; };
 		29F7D87C1876C87300FF997A /* CustomNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomNavigationController.h; sourceTree = "<group>"; };
 		29F7D87D1876C87300FF997A /* CustomNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomNavigationController.m; sourceTree = "<group>"; };
+		29F7D8841876CF0D00FF997A /* app_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = app_logo.png; sourceTree = "<group>"; };
+		29F7D8851876CF0D00FF997A /* app_logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app_logo@2x.png"; sourceTree = "<group>"; };
+		29F7D88C1876D0D700FF997A /* leafit_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = leafit_logo.png; sourceTree = "<group>"; };
+		29F7D88D1876D0D700FF997A /* leafit_logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "leafit_logo@2x.png"; sourceTree = "<group>"; };
+		29F7D89A1876D0D700FF997A /* logo_unine_bleu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_unine_bleu.png; sourceTree = "<group>"; };
+		29F7D8AA1876D2D600FF997A /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		29F7D8AB1876D2D600FF997A /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
+		29F7D8AD1876D2EF00FF997A /* map.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = map.xib; sourceTree = "<group>"; };
+		29F7D8AF1876D3F700FF997A /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		29F7D8B01876D3F700FF997A /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
+		29F7D8B41876E65400FF997A /* Building.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Building.h; sourceTree = "<group>"; };
+		29F7D8B51876E65400FF997A /* Building.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Building.m; sourceTree = "<group>"; };
+		29F7D8B61876E65400FF997A /* BuildingStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuildingStack.h; sourceTree = "<group>"; };
+		29F7D8B71876E65400FF997A /* BuildingStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuildingStack.m; sourceTree = "<group>"; };
+		29F7D8BA1876E66100FF997A /* Floor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Floor.h; sourceTree = "<group>"; };
+		29F7D8BB1876E66100FF997A /* Floor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Floor.m; sourceTree = "<group>"; };
+		29F7D8BC1876E66100FF997A /* Room.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Room.h; sourceTree = "<group>"; };
+		29F7D8BD1876E66100FF997A /* Room.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Room.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,6 +212,8 @@
 				29F7D8471876BE7900FF997A /* BreguetRoutingPrototype-Info.plist */,
 				29F7D8481876BE7900FF997A /* InfoPlist.strings */,
 				29F7D84D1876BE7900FF997A /* BreguetRoutingPrototype-Prefix.pch */,
+				29F7D8AF1876D3F700FF997A /* Constants.h */,
+				29F7D8B01876D3F700FF997A /* Constants.m */,
 			);
 			name = config;
 			sourceTree = "<group>";
@@ -173,6 +221,19 @@
 		29F7D8601876C3BD00FF997A /* images */ = {
 			isa = PBXGroup;
 			children = (
+				29E8CDC7187ABB6D00B59EC8 /* flag.png */,
+				29E8CDC8187ABB6D00B59EC8 /* flag@2x.png */,
+				29E8CDC9187ABB6D00B59EC8 /* gps.png */,
+				29E8CDCA187ABB6D00B59EC8 /* gps@2x.png */,
+				29E8CDCB187ABB6D00B59EC8 /* settings.png */,
+				29E8CDCC187ABB6D00B59EC8 /* settings@2x.png */,
+				29E8CDC3187AB90C00B59EC8 /* compass.png */,
+				29E8CDC4187AB90C00B59EC8 /* compass@2x.png */,
+				29F7D88C1876D0D700FF997A /* leafit_logo.png */,
+				29F7D88D1876D0D700FF997A /* leafit_logo@2x.png */,
+				29F7D89A1876D0D700FF997A /* logo_unine_bleu.png */,
+				29F7D8841876CF0D00FF997A /* app_logo.png */,
+				29F7D8851876CF0D00FF997A /* app_logo@2x.png */,
 				29F7D8511876BE7900FF997A /* Default.png */,
 				29F7D8531876BE7900FF997A /* Default@2x.png */,
 				29F7D8551876BE7900FF997A /* Default-568h@2x.png */,
@@ -199,6 +260,7 @@
 		29F7D8631876C41400FF997A /* models */ = {
 			isa = PBXGroup;
 			children = (
+				29F7D8B21876E5B700FF997A /* layermanager */,
 			);
 			name = models;
 			sourceTree = "<group>";
@@ -206,6 +268,7 @@
 		29F7D8641876C42300FF997A /* nibs */ = {
 			isa = PBXGroup;
 			children = (
+				29F7D8AD1876D2EF00FF997A /* map.xib */,
 			);
 			name = nibs;
 			sourceTree = "<group>";
@@ -220,6 +283,8 @@
 		29F7D8661876C43200FF997A /* controllers */ = {
 			isa = PBXGroup;
 			children = (
+				29F7D8AA1876D2D600FF997A /* MapViewController.h */,
+				29F7D8AB1876D2D600FF997A /* MapViewController.m */,
 			);
 			name = controllers;
 			sourceTree = "<group>";
@@ -229,6 +294,21 @@
 			children = (
 			);
 			name = shared;
+			sourceTree = "<group>";
+		};
+		29F7D8B21876E5B700FF997A /* layermanager */ = {
+			isa = PBXGroup;
+			children = (
+				29F7D8BA1876E66100FF997A /* Floor.h */,
+				29F7D8BB1876E66100FF997A /* Floor.m */,
+				29F7D8BC1876E66100FF997A /* Room.h */,
+				29F7D8BD1876E66100FF997A /* Room.m */,
+				29F7D8B41876E65400FF997A /* Building.h */,
+				29F7D8B51876E65400FF997A /* Building.m */,
+				29F7D8B61876E65400FF997A /* BuildingStack.h */,
+				29F7D8B71876E65400FF997A /* BuildingStack.m */,
+			);
+			name = layermanager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -287,6 +367,20 @@
 				29F7D8541876BE7900FF997A /* Default@2x.png in Resources */,
 				29F7D8561876BE7900FF997A /* Default-568h@2x.png in Resources */,
 				29F7D87B1876C58A00FF997A /* ArcGIS.bundle in Resources */,
+				29F7D8861876CF0D00FF997A /* app_logo.png in Resources */,
+				29F7D8871876CF0D00FF997A /* app_logo@2x.png in Resources */,
+				29F7D89B1876D0D700FF997A /* leafit_logo.png in Resources */,
+				29F7D89C1876D0D700FF997A /* leafit_logo@2x.png in Resources */,
+				29F7D8A91876D0D700FF997A /* logo_unine_bleu.png in Resources */,
+				29F7D8AE1876D2EF00FF997A /* map.xib in Resources */,
+				29E8CDC5187AB90C00B59EC8 /* compass.png in Resources */,
+				29E8CDC6187AB90C00B59EC8 /* compass@2x.png in Resources */,
+				29E8CDCD187ABB6D00B59EC8 /* flag.png in Resources */,
+				29E8CDCE187ABB6D00B59EC8 /* flag@2x.png in Resources */,
+				29E8CDCF187ABB6D00B59EC8 /* gps.png in Resources */,
+				29E8CDD0187ABB6D00B59EC8 /* gps@2x.png in Resources */,
+				29E8CDD1187ABB6D00B59EC8 /* settings.png in Resources */,
+				29E8CDD2187ABB6D00B59EC8 /* settings@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -300,6 +394,12 @@
 				29F7D84C1876BE7900FF997A /* main.m in Sources */,
 				29F7D8501876BE7900FF997A /* AppDelegate.m in Sources */,
 				29F7D87E1876C87300FF997A /* CustomNavigationController.m in Sources */,
+				29F7D8AC1876D2D600FF997A /* MapViewController.m in Sources */,
+				29F7D8B11876D3F700FF997A /* Constants.m in Sources */,
+				29F7D8B81876E65400FF997A /* Building.m in Sources */,
+				29F7D8B91876E65400FF997A /* BuildingStack.m in Sources */,
+				29F7D8BE1876E66100FF997A /* Floor.m in Sources */,
+				29F7D8BF1876E66100FF997A /* Room.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
