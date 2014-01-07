@@ -15,6 +15,11 @@
 		29E8CDD0187ABB6D00B59EC8 /* gps@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 29E8CDCA187ABB6D00B59EC8 /* gps@2x.png */; };
 		29E8CDD1187ABB6D00B59EC8 /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 29E8CDCB187ABB6D00B59EC8 /* settings.png */; };
 		29E8CDD2187ABB6D00B59EC8 /* settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 29E8CDCC187ABB6D00B59EC8 /* settings@2x.png */; };
+		29E8CDD5187AC2C300B59EC8 /* DestinationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29E8CDD4187AC2C300B59EC8 /* DestinationViewController.m */; };
+		29E8CDD9187AEDE000B59EC8 /* destination.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29E8CDD8187AEDE000B59EC8 /* destination.storyboard */; };
+		29E8CDDF187AEFA200B59EC8 /* FloorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29E8CDDE187AEFA200B59EC8 /* FloorsViewController.m */; };
+		29E8CDE2187AEFFB00B59EC8 /* RoomsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29E8CDE1187AEFFB00B59EC8 /* RoomsViewController.m */; };
+		29E8CDE5187AF11400B59EC8 /* OccupantsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29E8CDE4187AF11400B59EC8 /* OccupantsViewController.m */; };
 		29F7D8401876BE7900FF997A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29F7D83F1876BE7900FF997A /* UIKit.framework */; };
 		29F7D8421876BE7900FF997A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29F7D8411876BE7900FF997A /* Foundation.framework */; };
 		29F7D8441876BE7900FF997A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29F7D8431876BE7900FF997A /* CoreGraphics.framework */; };
@@ -58,6 +63,15 @@
 		29E8CDCA187ABB6D00B59EC8 /* gps@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gps@2x.png"; sourceTree = "<group>"; };
 		29E8CDCB187ABB6D00B59EC8 /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
 		29E8CDCC187ABB6D00B59EC8 /* settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings@2x.png"; sourceTree = "<group>"; };
+		29E8CDD3187AC2C300B59EC8 /* DestinationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DestinationViewController.h; sourceTree = "<group>"; };
+		29E8CDD4187AC2C300B59EC8 /* DestinationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DestinationViewController.m; sourceTree = "<group>"; };
+		29E8CDD8187AEDE000B59EC8 /* destination.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = destination.storyboard; sourceTree = "<group>"; };
+		29E8CDDD187AEFA200B59EC8 /* FloorsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FloorsViewController.h; sourceTree = "<group>"; };
+		29E8CDDE187AEFA200B59EC8 /* FloorsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FloorsViewController.m; sourceTree = "<group>"; };
+		29E8CDE0187AEFFB00B59EC8 /* RoomsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoomsViewController.h; sourceTree = "<group>"; };
+		29E8CDE1187AEFFB00B59EC8 /* RoomsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoomsViewController.m; sourceTree = "<group>"; };
+		29E8CDE3187AF11400B59EC8 /* OccupantsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OccupantsViewController.h; sourceTree = "<group>"; };
+		29E8CDE4187AF11400B59EC8 /* OccupantsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OccupantsViewController.m; sourceTree = "<group>"; };
 		29F7D83C1876BE7900FF997A /* BreguetRoutingPrototype.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BreguetRoutingPrototype.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		29F7D83F1876BE7900FF997A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		29F7D8411876BE7900FF997A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -269,6 +283,7 @@
 			isa = PBXGroup;
 			children = (
 				29F7D8AD1876D2EF00FF997A /* map.xib */,
+				29E8CDD8187AEDE000B59EC8 /* destination.storyboard */,
 			);
 			name = nibs;
 			sourceTree = "<group>";
@@ -285,6 +300,14 @@
 			children = (
 				29F7D8AA1876D2D600FF997A /* MapViewController.h */,
 				29F7D8AB1876D2D600FF997A /* MapViewController.m */,
+				29E8CDD3187AC2C300B59EC8 /* DestinationViewController.h */,
+				29E8CDD4187AC2C300B59EC8 /* DestinationViewController.m */,
+				29E8CDDD187AEFA200B59EC8 /* FloorsViewController.h */,
+				29E8CDDE187AEFA200B59EC8 /* FloorsViewController.m */,
+				29E8CDE0187AEFFB00B59EC8 /* RoomsViewController.h */,
+				29E8CDE1187AEFFB00B59EC8 /* RoomsViewController.m */,
+				29E8CDE3187AF11400B59EC8 /* OccupantsViewController.h */,
+				29E8CDE4187AF11400B59EC8 /* OccupantsViewController.m */,
 			);
 			name = controllers;
 			sourceTree = "<group>";
@@ -381,6 +404,7 @@
 				29E8CDD0187ABB6D00B59EC8 /* gps@2x.png in Resources */,
 				29E8CDD1187ABB6D00B59EC8 /* settings.png in Resources */,
 				29E8CDD2187ABB6D00B59EC8 /* settings@2x.png in Resources */,
+				29E8CDD9187AEDE000B59EC8 /* destination.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -400,6 +424,10 @@
 				29F7D8B91876E65400FF997A /* BuildingStack.m in Sources */,
 				29F7D8BE1876E66100FF997A /* Floor.m in Sources */,
 				29F7D8BF1876E66100FF997A /* Room.m in Sources */,
+				29E8CDD5187AC2C300B59EC8 /* DestinationViewController.m in Sources */,
+				29E8CDDF187AEFA200B59EC8 /* FloorsViewController.m in Sources */,
+				29E8CDE2187AEFFB00B59EC8 /* RoomsViewController.m in Sources */,
+				29E8CDE5187AF11400B59EC8 /* OccupantsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

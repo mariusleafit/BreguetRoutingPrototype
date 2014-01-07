@@ -9,6 +9,7 @@
 #import "MapViewController.h"
 #import "Constants.h"
 #import "AppDelegate.h"
+#import "DestinationViewController.h"
 
 @interface MapViewController ()
 @property (nonatomic) AGSTiledMapServiceLayer *streetBasemap;
@@ -75,7 +76,11 @@
 
 #pragma mark UISearchBarDelegate
 -(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
-    
+    [self.view endEditing:YES];
+    //show select destination view
+    UIStoryboard *destinationStoryboard = [UIStoryboard storyboardWithName:@"destination" bundle:nil];
+    DestinationViewController  *destinationViewController = [destinationStoryboard instantiateViewControllerWithIdentifier:@"destination"];
+    [self.appDelegate.navigationController pushViewController:destinationViewController animated:YES];
 }
 
 #pragma mark IBAction
