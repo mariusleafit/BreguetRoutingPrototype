@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		29DDC017187EA34600364A04 /* DeviceLocationMarkingLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 29DDC016187EA34600364A04 /* DeviceLocationMarkingLayer.m */; };
+		29DDC01A187ED6FF00364A04 /* FloorMarkingLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 29DDC019187ED6FF00364A04 /* FloorMarkingLayer.m */; };
+		29DDC01E187EE7F100364A04 /* ClosestRoomHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 29DDC01D187EE7F100364A04 /* ClosestRoomHelper.m */; };
 		29E8CDC5187AB90C00B59EC8 /* compass.png in Resources */ = {isa = PBXBuildFile; fileRef = 29E8CDC3187AB90C00B59EC8 /* compass.png */; };
 		29E8CDC6187AB90C00B59EC8 /* compass@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 29E8CDC4187AB90C00B59EC8 /* compass@2x.png */; };
 		29E8CDCD187ABB6D00B59EC8 /* flag.png in Resources */ = {isa = PBXBuildFile; fileRef = 29E8CDC7187ABB6D00B59EC8 /* flag.png */; };
@@ -55,6 +58,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		29DDC015187EA34600364A04 /* DeviceLocationMarkingLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceLocationMarkingLayer.h; sourceTree = "<group>"; };
+		29DDC016187EA34600364A04 /* DeviceLocationMarkingLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceLocationMarkingLayer.m; sourceTree = "<group>"; };
+		29DDC018187ED6FE00364A04 /* FloorMarkingLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FloorMarkingLayer.h; sourceTree = "<group>"; };
+		29DDC019187ED6FF00364A04 /* FloorMarkingLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FloorMarkingLayer.m; sourceTree = "<group>"; };
+		29DDC01C187EE7F100364A04 /* ClosestRoomHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClosestRoomHelper.h; sourceTree = "<group>"; };
+		29DDC01D187EE7F100364A04 /* ClosestRoomHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClosestRoomHelper.m; sourceTree = "<group>"; };
 		29E8CDC3187AB90C00B59EC8 /* compass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = compass.png; sourceTree = "<group>"; };
 		29E8CDC4187AB90C00B59EC8 /* compass@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "compass@2x.png"; sourceTree = "<group>"; };
 		29E8CDC7187ABB6D00B59EC8 /* flag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flag.png; sourceTree = "<group>"; };
@@ -140,6 +149,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		29DDC01B187EE7D700364A04 /* helpers */ = {
+			isa = PBXGroup;
+			children = (
+				29DDC01C187EE7F100364A04 /* ClosestRoomHelper.h */,
+				29DDC01D187EE7F100364A04 /* ClosestRoomHelper.m */,
+			);
+			name = helpers;
+			sourceTree = "<group>";
+		};
 		29F7D8331876BE7900FF997A = {
 			isa = PBXGroup;
 			children = (
@@ -193,6 +211,7 @@
 		29F7D85C1876C37200FF997A /* core */ = {
 			isa = PBXGroup;
 			children = (
+				29DDC01B187EE7D700364A04 /* helpers */,
 				29F7D8631876C41400FF997A /* models */,
 				29F7D8621876C40900FF997A /* queries */,
 				29F7D8611876C3FD00FF997A /* system */,
@@ -315,6 +334,10 @@
 		29F7D8671876C44900FF997A /* shared */ = {
 			isa = PBXGroup;
 			children = (
+				29DDC015187EA34600364A04 /* DeviceLocationMarkingLayer.h */,
+				29DDC016187EA34600364A04 /* DeviceLocationMarkingLayer.m */,
+				29DDC018187ED6FE00364A04 /* FloorMarkingLayer.h */,
+				29DDC019187ED6FF00364A04 /* FloorMarkingLayer.m */,
 			);
 			name = shared;
 			sourceTree = "<group>";
@@ -428,6 +451,9 @@
 				29E8CDDF187AEFA200B59EC8 /* FloorsViewController.m in Sources */,
 				29E8CDE2187AEFFB00B59EC8 /* RoomsViewController.m in Sources */,
 				29E8CDE5187AF11400B59EC8 /* OccupantsViewController.m in Sources */,
+				29DDC017187EA34600364A04 /* DeviceLocationMarkingLayer.m in Sources */,
+				29DDC01A187ED6FF00364A04 /* FloorMarkingLayer.m in Sources */,
+				29DDC01E187EE7F100364A04 /* ClosestRoomHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

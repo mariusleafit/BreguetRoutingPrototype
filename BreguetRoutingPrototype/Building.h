@@ -33,6 +33,7 @@
 -(NSArray *)getFloors;
 -(NSArray *)getVisibleFloorsSortedAsc:(BOOL)asc;
 -(NSArray *)getVisibleFloorIDsSortedAsc:(BOOL)asc;
+-(NSArray *)getVisibleFloors;
 -(Floor *)getFloorWithFloorCode:(NSString *)floorCode;
 -(Floor *)getFloorWithFloorID:(NSNumber *)floorID;
 -(void)changeVisibleFloorsWithFloorCode:(NSString *)floorCode;

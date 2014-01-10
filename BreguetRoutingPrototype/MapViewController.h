@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <ArcGIS/ArcGIS.h>
 
-@interface MapViewController : UIViewController<AGSMapViewTouchDelegate, AGSMapViewLayerDelegate, UISearchBarDelegate>
+@interface MapViewController : UIViewController<AGSMapViewTouchDelegate, AGSMapViewLayerDelegate, UISearchBarDelegate, AGSLocationDisplayDataSourceDelegate>
 @property (weak, nonatomic) IBOutlet AGSMapView *map;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 - (IBAction)routeClick:(id)sender;

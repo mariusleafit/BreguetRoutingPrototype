@@ -109,7 +109,7 @@
     return [self sortFloorArray:self.floors asc:asc];
 }
 
--(NSArray *)getVisibleFloorsSortedAsc:(BOOL)asc {
+-(NSArray *)getVisibleFloors{
     //capacity can be increased (by adding more objects) is just an indicator
     NSMutableArray *returnFloors = [NSMutableArray arrayWithCapacity:30];
     if(self.floors && self.floors.count > 0) {
@@ -119,6 +119,12 @@
             }
         }
     }
+    return returnFloors;
+}
+
+-(NSArray *)getVisibleFloorsSortedAsc:(BOOL)asc {
+    //capacity can be increased (by adding more objects) is just an indicator
+    NSMutableArray *returnFloors = [NSMutableArray arrayWithArray:[self getVisibleFloors]];
     
     return [self sortFloorArray:returnFloors asc:asc];
 }
