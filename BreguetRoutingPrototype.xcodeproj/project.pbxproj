@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		29CC770E188040FA007076C2 /* ChangeFloor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29CC770D188040FA007076C2 /* ChangeFloor.xib */; };
+		29CC77111880417D007076C2 /* ChangeFloorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29CC77101880417D007076C2 /* ChangeFloorViewController.m */; };
+		29CC771418804A3B007076C2 /* ChangeFloorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29CC771318804A3B007076C2 /* ChangeFloorCell.xib */; };
+		29CC771718804A4F007076C2 /* ChangeFloorListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 29CC771618804A4F007076C2 /* ChangeFloorListCell.m */; };
 		29DDC017187EA34600364A04 /* DeviceLocationMarkingLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 29DDC016187EA34600364A04 /* DeviceLocationMarkingLayer.m */; };
 		29DDC01A187ED6FF00364A04 /* FloorMarkingLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 29DDC019187ED6FF00364A04 /* FloorMarkingLayer.m */; };
 		29DDC01E187EE7F100364A04 /* ClosestRoomHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 29DDC01D187EE7F100364A04 /* ClosestRoomHelper.m */; };
@@ -58,6 +62,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		29CC770D188040FA007076C2 /* ChangeFloor.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChangeFloor.xib; sourceTree = "<group>"; };
+		29CC770F1880417D007076C2 /* ChangeFloorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangeFloorViewController.h; sourceTree = "<group>"; };
+		29CC77101880417D007076C2 /* ChangeFloorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangeFloorViewController.m; sourceTree = "<group>"; };
+		29CC7712188048F4007076C2 /* ChangeFloorViewDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChangeFloorViewDelegate.h; sourceTree = "<group>"; };
+		29CC771318804A3B007076C2 /* ChangeFloorCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChangeFloorCell.xib; sourceTree = "<group>"; };
+		29CC771518804A48007076C2 /* ChangeFloorListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangeFloorListCell.h; sourceTree = "<group>"; };
+		29CC771618804A4F007076C2 /* ChangeFloorListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangeFloorListCell.m; sourceTree = "<group>"; };
 		29DDC015187EA34600364A04 /* DeviceLocationMarkingLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceLocationMarkingLayer.h; sourceTree = "<group>"; };
 		29DDC016187EA34600364A04 /* DeviceLocationMarkingLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceLocationMarkingLayer.m; sourceTree = "<group>"; };
 		29DDC018187ED6FE00364A04 /* FloorMarkingLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FloorMarkingLayer.h; sourceTree = "<group>"; };
@@ -301,6 +312,8 @@
 		29F7D8641876C42300FF997A /* nibs */ = {
 			isa = PBXGroup;
 			children = (
+				29CC771318804A3B007076C2 /* ChangeFloorCell.xib */,
+				29CC770D188040FA007076C2 /* ChangeFloor.xib */,
 				29F7D8AD1876D2EF00FF997A /* map.xib */,
 				29E8CDD8187AEDE000B59EC8 /* destination.storyboard */,
 			);
@@ -327,6 +340,9 @@
 				29E8CDE1187AEFFB00B59EC8 /* RoomsViewController.m */,
 				29E8CDE3187AF11400B59EC8 /* OccupantsViewController.h */,
 				29E8CDE4187AF11400B59EC8 /* OccupantsViewController.m */,
+				29CC770F1880417D007076C2 /* ChangeFloorViewController.h */,
+				29CC77101880417D007076C2 /* ChangeFloorViewController.m */,
+				29CC7712188048F4007076C2 /* ChangeFloorViewDelegate.h */,
 			);
 			name = controllers;
 			sourceTree = "<group>";
@@ -334,6 +350,8 @@
 		29F7D8671876C44900FF997A /* shared */ = {
 			isa = PBXGroup;
 			children = (
+				29CC771618804A4F007076C2 /* ChangeFloorListCell.m */,
+				29CC771518804A48007076C2 /* ChangeFloorListCell.h */,
 				29DDC015187EA34600364A04 /* DeviceLocationMarkingLayer.h */,
 				29DDC016187EA34600364A04 /* DeviceLocationMarkingLayer.m */,
 				29DDC018187ED6FE00364A04 /* FloorMarkingLayer.h */,
@@ -428,6 +446,8 @@
 				29E8CDD1187ABB6D00B59EC8 /* settings.png in Resources */,
 				29E8CDD2187ABB6D00B59EC8 /* settings@2x.png in Resources */,
 				29E8CDD9187AEDE000B59EC8 /* destination.storyboard in Resources */,
+				29CC770E188040FA007076C2 /* ChangeFloor.xib in Resources */,
+				29CC771418804A3B007076C2 /* ChangeFloorCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -454,6 +474,8 @@
 				29DDC017187EA34600364A04 /* DeviceLocationMarkingLayer.m in Sources */,
 				29DDC01A187ED6FF00364A04 /* FloorMarkingLayer.m in Sources */,
 				29DDC01E187EE7F100364A04 /* ClosestRoomHelper.m in Sources */,
+				29CC77111880417D007076C2 /* ChangeFloorViewController.m in Sources */,
+				29CC771718804A4F007076C2 /* ChangeFloorListCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
