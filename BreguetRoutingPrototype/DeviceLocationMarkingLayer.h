@@ -9,7 +9,12 @@
 #import <ArcGIS/ArcGIS.h>
 
 @interface DeviceLocationMarkingLayer : AGSGraphicsLayer
+
+@property (nonatomic) AGSPolygon *accuracyCircle;
+@property (nonatomic) AGSSpatialReference *spatialReference;
+
 -(id)init;
--(void)setLocation:(AGSPoint *)deviceLocation isGPS:(bool)isgps;
+-(void)setLocation:(AGSPoint *)deviceLocation withSpatialReference:(AGSSpatialReference *)sp;
+-(void)setGPSLocation:(AGSLocation *)gpsLocation withSpatialReference:(AGSSpatialReference *)sp;
 -(void)clear;
 @end

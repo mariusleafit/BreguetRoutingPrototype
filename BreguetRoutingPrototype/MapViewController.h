@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <ArcGIS/ArcGIS.h>
+#import "ChangeFloorViewDelegate.h"
 
-@interface MapViewController : UIViewController<AGSMapViewTouchDelegate, AGSMapViewLayerDelegate, UISearchBarDelegate, AGSLocationDisplayDataSourceDelegate>
+@interface MapViewController : UIViewController<AGSMapViewTouchDelegate, AGSMapViewLayerDelegate, UISearchBarDelegate, AGSLocationDisplayDataSourceDelegate, ChangeFloorViewDelegate, UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet AGSMapView *map;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 - (IBAction)routeClick:(id)sender;

@@ -212,6 +212,15 @@
 
 
 #pragma mark modifiers
+-(void)changeVisibleFloorsWithFloors:(NSArray *)pFloors {
+    NSMutableArray *floorCodes = [NSMutableArray arrayWithCapacity:8];
+    for (Floor *floor in pFloors) {
+        [floorCodes addObject:floor.floorCode];
+    }
+    [self changeVisibleFloorsWithFloorCodes:floorCodes];
+}
+
+
 -(void)changeVisibleFloorsWithFloorCode:(NSString *)floorCode{
     [self changeVisibleFloorsWithFloorCodes:[NSArray arrayWithObject:floorCode]];
 }

@@ -38,6 +38,7 @@
 -(Floor *)getFloorWithFloorID:(NSNumber *)floorID;
 -(void)changeVisibleFloorsWithFloorCode:(NSString *)floorCode;
 -(void)changeVisibleFloorsWithFloorCodes:(NSArray *)floorCodes;
+-(void)changeVisibleFloorsWithFloors:(NSArray *)floors;
 
 //set the Visibility of the Floors to the defaultVisibility
 -(void)resetFloorVisibility;

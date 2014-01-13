@@ -12,6 +12,15 @@
 #import "DestinationViewController.h"
 #import "DeviceLocationMarkingLayer.h"
 #import "FloorMarkingLayer.h"
+#import "ClosestRoomHelper.h"
+#import "ChangeFloorViewController.h"
+
+#define DLG_CURRENT_FLOOR 1
+#define DLG_ROOM 2
+#define DLG_LOAD_POSITION 3
+
+#define IDENTIFY_ROOM @"identifyRoom"
+#define NORMAL_FLOOR_CHANGE @"normal"
 
 @interface MapViewController ()
 @property (nonatomic) AGSTiledMapServiceLayer *streetBasemap;
@@ -23,7 +32,13 @@
 @property (nonatomic) AGSCLLocationManagerLocationDisplayDataSource *gpsDataSource;
 
 @property (nonatomic) FloorMarkingLayer *floorMarkingLayer;
+
+
+@property (nonatomic) AGSGraphicsLayer *currentRoomMarkingLayer;
 @end
+
+
+
 
 @implementation MapViewController
 
@@ -75,12 +90,7 @@
     for (Floor *floor in [self.breguet getVisibleFloorsSortedAsc:NO]) {
         [self.map addMapLayer:[[AGSFeatureLayer alloc] initWithURL:[floor getFloorURL] mode:AGSFeatureLayerModeSnapshot] withName:[ [floor getFloorURL] absoluteString]];
     }
-    
-    //add locationmarkerlayer
-    self.deviceLocationLayer = [[DeviceLocationMarkingLayer alloc] init];
-    [self.map addMapLayer:self.deviceLocationLayer withName:@"deviceLocationMarkingLayer"];
-    
-    
+        
     //zoom to Breguet
     //project polygon
     AGSEnvelope *projectedPolygon = (AGSEnvelope *)[[AGSGeometryEngine defaultGeometryEngine] projectGeometry:self.breguet.extent toSpatialReference:[Constants BASEMAP_SPATIALREFERENCE]];
@@ -89,9 +99,78 @@
     [self.map zoomToEnvelope:projectedPolygon animated:NO];
 }
 
+#pragma mark ChangeFloorViewDelegate
+//gets called when user changed the visible floors
+-(void)changeFloorView:(ChangeFloorViewController *)viewController visibleFloorsDidChange:(NSArray *)visibleFloors {
+    
+    //if floor changed to get the current room
+    if([viewController.identifier isEqualToString:IDENTIFY_ROOM]) {
+        //change floors on map
+        //is at least one floor visible?
+        if([visibleFloors count] > 0) {
+            [self.breguet changeVisibleFloorsWithFloorCode:[visibleFloors objectAtIndex:0]];
+        } else {
+            //set visibility back to default
+            [self.breguet resetFloorVisibility];
+        }
+        [self updateVisibleFloorsOfBuilding:self.breguet];
+        
+        //start gps to try to get the current room
+        [self.gpsDataSource start];
+    } else if([viewController.identifier isEqualToString:NORMAL_FLOOR_CHANGE]) {
+        //change floors on map
+        
+        //is at least one floor visible?
+        if([visibleFloors count] > 0) {
+            [self.breguet changeVisibleFloorsWithFloors:visibleFloors];
+        } else {
+            //set visibility back to default
+            [self.breguet resetFloorVisibility];
+        }
+        [self updateVisibleFloorsOfBuilding:self.breguet];
+    }
+}
+
+#pragma mark ChangeEtageManagement
+-(void) updateVisibleFloorsOfBuilding:(Building *)building {
+    //delete every Floor of Building
+    for(Floor *floor in [building getFloors]) {
+        [self.map removeMapLayerWithName:[[floor getFloorURL] absoluteString]];
+    }
+    
+    //show visible Floors
+    for(Floor *floor in [building getVisibleFloorsSortedAsc:YES]) {
+        
+        AGSFeatureLayer *tmpFeatureLayer = [[AGSFeatureLayer alloc] initWithURL:[floor getFloorURL] mode:AGSFeatureLayerModeSnapshot];
+        [self.map addMapLayer:tmpFeatureLayer withName:[ [floor getFloorURL] absoluteString]];
+    }
+}
+
 #pragma mark AGSMapViewTouchDelegate
 -(void)mapView:(AGSMapView *)mapView didTapAndHoldAtPoint:(CGPoint)screen mapPoint:(AGSPoint *)mappoint graphics:(NSDictionary *)graphics {
-    [self.deviceLocationLayer setLocation:mappoint isGPS:YES];
+    //open changeFloorView if tap on building
+    Building *clickedBuilding = [self.appDelegate.buildingStack getBuildingWithPoint:mappoint andSpatialReference:[Constants BASEMAP_SPATIALREFERENCE]];
+    if(clickedBuilding) {
+        //show changeFloorView
+        ChangeFloorViewController *changeFloorView = [[ChangeFloorViewController alloc] initWithNibName:@"ChangeFloor" bundle:nil Identifier:NORMAL_FLOOR_CHANGE Building:clickedBuilding delegate:self];
+        [self.navigationController pushViewController:changeFloorView animated:YES];
+    }
+}
+
+-(void)mapView:(AGSMapView *)mapView didClickAtPoint:(CGPoint)screen mapPoint:(AGSPoint *)mappoint graphics:(NSDictionary *)graphics {
+#pragma mark todo
+    AGSGraphic *clickedRoom = [[[graphics allValues]objectAtIndex:0] objectAtIndex:0];
+    if(clickedRoom) {
+        //mark Room
+        if(self.currentRoomMarkingLayer) {
+            [self.map removeMapLayer:self.currentRoomMarkingLayer];
+        }
+        
+        self.currentRoomMarkingLayer = [[AGSGraphicsLayer alloc] init];
+        [self.map addMapLayer:self.currentRoomMarkingLayer];
+        [self.currentRoomMarkingLayer addGraphic:[AGSGraphic graphicWithGeometry:clickedRoom.geometry symbol:[AGSSimpleFillSymbol simpleFillSymbolWithColor:[UIColor redColor] outlineColor:nil] attributes:nil infoTemplateDelegate:nil]];
+    }
+    
 }
 
 #pragma mark UISearchBarDelegate
@@ -105,41 +184,55 @@
 
 #pragma mark AGSLocationDisplayDataSourceDelegate
 
-//
 int gpsCounter;
-
+UIAlertView *gpsAlertView;
 -(void)locationDisplayDataSource:(id<AGSLocationDisplayDataSource>)dataSource didUpdateWithLocation:(AGSLocation *)location {
-    //white a while to let the device find his correct position
+    //wait a while to let the device find his correct position
     if(gpsCounter == 5) {
         
         //**mark Building
         Floor *currentFloor = [[self.breguet getVisibleFloors] objectAtIndex:0];
         AGSFeatureLayer *breguetLayer = (AGSFeatureLayer *)[self.map mapLayerForName:[[currentFloor getFloorURL] absoluteString]];
         
-        self.floorMarkingLayer = [[FloorMarkingLayer alloc] initWithFeatureLayer:breguetLayer];
-        [self.map addMapLayer:self.floorMarkingLayer withName:@"floorMarkingLayer"];
+        /*self.floorMarkingLayer = [[FloorMarkingLayer alloc] initWithFeatureLayer:breguetLayer];
+         [self.map addMapLayer:self.floorMarkingLayer withName:@"floorMarkingLayer"];*/
+        
+        AGSGraphic *closestRoom = [ClosestRoomHelper getClosestRoom:location.point inCircle:self.deviceLocationLayer.accuracyCircle onFeatureLayer:breguetLayer];
+        
+        if(closestRoom) {
+            //mark closes Room
+            if(self.currentRoomMarkingLayer) {
+                [self.map removeMapLayer:self.currentRoomMarkingLayer];
+            }
+            
+            self.currentRoomMarkingLayer = [[AGSGraphicsLayer alloc] init];
+            [self.map addMapLayer:self.currentRoomMarkingLayer];
+            [self.currentRoomMarkingLayer addGraphic:[AGSGraphic graphicWithGeometry:closestRoom.geometry symbol:[AGSSimpleFillSymbol simpleFillSymbolWithColor:[UIColor redColor] outlineColor:nil] attributes:nil infoTemplateDelegate:nil]];
+            
+            //get roomName
+            NSString *closestRoomName = [closestRoom attributeAsStringForKey:@"LOC_CODE"];
+            
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Étage" message:[NSString stringWithFormat:@"Vous-êtez dans le local '%@'?.",closestRoomName] delegate:self cancelButtonTitle:@"Non" otherButtonTitles:@"Oui",nil];
+            alertView.tag = DLG_ROOM;
+            [alertView show];
+        }
+        
         [self.gpsDataSource stop];
+        [gpsAlertView dismissWithClickedButtonIndex:0 animated:TRUE];
     } else {
+        //show loading dialog
+        if(gpsCounter == 0) {
+            gpsAlertView = [[UIAlertView alloc] initWithTitle:@"Chercher la position..." message:@""
+                                                     delegate:self
+                                            cancelButtonTitle:@"Annuler"
+                                            otherButtonTitles:nil];
+            gpsAlertView.tag = DLG_LOAD_POSITION;
+            [gpsAlertView show];
+        }
         //project point
-        AGSPoint *projectedLocation = (AGSPoint *)[[AGSGeometryEngine defaultGeometryEngine] projectGeometry:location.point toSpatialReference:[Constants BASEMAP_SPATIALREFERENCE]];
-        [self.deviceLocationLayer setLocation:projectedLocation isGPS:YES];
-        
-        AGSGeometryEngine *geometryEngine = [AGSGeometryEngine defaultGeometryEngine];
-        AGSPolygon *circle = [geometryEngine bufferGeometry:projectedLocation byDistance:location.accuracy];
-        
-        
-        
-        AGSGraphicsLayer *test = [[AGSGraphicsLayer alloc] init];
-        
-        AGSGraphic *circleGraphic = [AGSGraphic graphicWithGeometry:circle symbol:[AGSSimpleFillSymbol simpleFillSymbolWithColor:nil outlineColor:[UIColor blackColor]] attributes:nil infoTemplateDelegate:nil];
-        
-        [test addGraphic:circleGraphic];
-        [self.map addMapLayer:test];
-        
-        
+        [self.deviceLocationLayer setGPSLocation:location withSpatialReference:[Constants BASEMAP_SPATIALREFERENCE]];
     }
     gpsCounter++;
-    
 }
 
 -(void)locationDisplayDataSource:(id<AGSLocationDisplayDataSource>)dataSource didFailWithError:(NSError *)error {
@@ -158,25 +251,63 @@ int gpsCounter;
     //[self.map removeMapLayerWithName:@"floorMarkingLayer"];
 }
 
+#pragma mark UIAlertViewDelegate
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    ChangeFloorViewController *changeFloorView;
+    UIAlertView *localAlertView;
+    switch(alertView.tag) {
+        case DLG_CURRENT_FLOOR:
+            switch(buttonIndex) {
+                case 0://NON
+                    //show changeFloorView
+                    changeFloorView = [[ChangeFloorViewController alloc] initWithNibName:@"ChangeFloor" bundle:nil Identifier:IDENTIFY_ROOM Building:self.breguet delegate:self];
+                    [self.navigationController pushViewController:changeFloorView animated:YES];
+                    break;
+                case 1://OUI
+                    [self.gpsDataSource start];
+                    break;
+            }
+            break;
+        case DLG_ROOM:
+            switch(buttonIndex) {
+                case 0:
+                     localAlertView = [[UIAlertView alloc] initWithTitle:@"Local" message:[NSString stringWithFormat:@"Choisisez le local à la main."] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                    [localAlertView show];
+                    [self.deviceLocationLayer clear];
+                    break;
+            }
+            break;
+        case DLG_LOAD_POSITION:
+            [self.gpsDataSource stop];
+            [self.deviceLocationLayer clear];
+            break;
+    }
+}
+
 #pragma mark IBAction
 
 - (IBAction)routeClick:(id)sender {
 }
 - (IBAction)gpsClick:(id)sender {
-    [self.gpsDataSource start];
-   //self.map.locationDisplay.mapLocation = [[AGSPoint alloc] initWithX:<#(double)#> y:<#(double)#> spatialReference:<#(AGSSpatialReference *)#>]
-    /*if(self.map.locationDisplay.dataSourceStarted){
-        [self.map.locationDisplay stopDataSource];
-        self.map.locationDisplay.autoPanMode = AGSLocationDisplayAutoPanModeDefault;
-        self.gpsButton.tintColor = [UIColor whiteColor];
-    } else {
-        
-        
-        [self.map.locationDisplay startDataSource];
-        self.map.locationDisplay.autoPanMode = AGSLocationDisplayAutoPanModeDefault;
-        self.gpsButton.tintColor = [UIColor greenColor];
-        
-    }*/
+    //add deviceposition layer
+    if(self.deviceLocationLayer) {
+        [self.map removeMapLayer:self.deviceLocationLayer];
+    }
+    //add locationmarkerlayer
+    self.deviceLocationLayer = [[DeviceLocationMarkingLayer alloc] init];
+    [self.map addMapLayer:self.deviceLocationLayer withName:@"deviceLocationMarkingLayer"];
+    
+    //remove gps & room marker
+    [self.currentRoomMarkingLayer removeAllGraphics];
+    [self.deviceLocationLayer clear];
+    
+    
+    //get currently visible floor
+    Floor *currentFloor = [[self.breguet getVisibleFloors] objectAtIndex:0];
+    
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Étage" message:[NSString stringWithFormat:@"Vous-êtez sur l'étage '%@'?.",currentFloor.floorName] delegate:self cancelButtonTitle:@"Non" otherButtonTitles:@"Oui",nil];
+    alertView.tag = DLG_CURRENT_FLOOR;
+    [alertView show];
 }
 - (IBAction)choosePoint:(id)sender {
     [self.map.locationDisplay stopDataSource];

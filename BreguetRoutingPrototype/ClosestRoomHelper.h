@@ -10,5 +10,5 @@
 #import <ArcGIS/ArcGIS.h>
 
 @interface ClosestRoomHelper : NSObject
-+(AGSPolygon*)getClosestRoom:(AGSPoint *)point onFeatureLayer:(AGSFeatureLayer *)featureLayer;
++(AGSGraphic*)getClosestRoom:(AGSPoint *)point inCircle:(AGSPolygon *)circle onFeatureLayer:(AGSFeatureLayer *)featureLayer;
 @end
