@@ -35,6 +35,7 @@
 
 
 @property (nonatomic) AGSGraphicsLayer *currentRoomMarkingLayer;
+@property (nonatomic) AGSSimpleFillSymbol *roomMarkingSymbol;
 @end
 
 
@@ -71,6 +72,9 @@
     
     //nitialize gui components
     self.searchBar.delegate = self;
+    
+    self.roomMarkingSymbol = [AGSSimpleFillSymbol simpleFillSymbolWithColor:nil outlineColor:[UIColor blueColor]];
+    self.roomMarkingSymbol.outline.width = 3;
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -168,7 +172,7 @@
         
         self.currentRoomMarkingLayer = [[AGSGraphicsLayer alloc] init];
         [self.map addMapLayer:self.currentRoomMarkingLayer];
-        [self.currentRoomMarkingLayer addGraphic:[AGSGraphic graphicWithGeometry:clickedRoom.geometry symbol:[AGSSimpleFillSymbol simpleFillSymbolWithColor:[UIColor redColor] outlineColor:nil] attributes:nil infoTemplateDelegate:nil]];
+        [self.currentRoomMarkingLayer addGraphic:[AGSGraphic graphicWithGeometry:clickedRoom.geometry symbol:self.roomMarkingSymbol attributes:nil infoTemplateDelegate:nil]];
     }
     
 }
@@ -207,7 +211,7 @@ UIAlertView *gpsAlertView;
             
             self.currentRoomMarkingLayer = [[AGSGraphicsLayer alloc] init];
             [self.map addMapLayer:self.currentRoomMarkingLayer];
-            [self.currentRoomMarkingLayer addGraphic:[AGSGraphic graphicWithGeometry:closestRoom.geometry symbol:[AGSSimpleFillSymbol simpleFillSymbolWithColor:[UIColor redColor] outlineColor:nil] attributes:nil infoTemplateDelegate:nil]];
+            [self.currentRoomMarkingLayer addGraphic:[AGSGraphic graphicWithGeometry:closestRoom.geometry symbol:self.roomMarkingSymbol attributes:nil infoTemplateDelegate:nil]];
             
             //get roomName
             NSString *closestRoomName = [closestRoom attributeAsStringForKey:@"LOC_CODE"];

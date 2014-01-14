@@ -158,7 +158,7 @@
 						<reference key="IBUINormalTitleShadowColor" ref="120656379"/>
 						<object class="NSCustomResource" key="IBUINormalImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">settings.png</string>
+							<string key="NSResourceName">wheelchair.png</string>
 						</object>
 						<reference key="IBUIFontDescription" ref="140546270"/>
 						<reference key="IBUIFont" ref="492180591"/>
@@ -1066,7 +1066,7 @@
 			<string key="compass.png">{32, 32}</string>
 			<string key="flag.png">{32, 32}</string>
 			<string key="gps.png">{32, 32}</string>
-			<string key="settings.png">{32, 32}</string>
+			<string key="wheelchair.png">{32, 32}</string>
 		</dictionary>
 		<bool key="IBDocument.UseAutolayout">YES</bool>
 		<string key="IBCocoaTouchPluginVersion">2083</string>
