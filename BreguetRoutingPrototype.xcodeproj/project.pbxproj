@@ -16,6 +16,8 @@
 		29DDC01E187EE7F100364A04 /* ClosestRoomHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 29DDC01D187EE7F100364A04 /* ClosestRoomHelper.m */; };
 		29DF12EF1885242000967E37 /* wheelchair.png in Resources */ = {isa = PBXBuildFile; fileRef = 29DF12ED1885242000967E37 /* wheelchair.png */; };
 		29DF12F01885242000967E37 /* wheelchair@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 29DF12EE1885242000967E37 /* wheelchair@2x.png */; };
+		29E824081891165C00408841 /* GeneralSearchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29E824071891165C00408841 /* GeneralSearchView.xib */; };
+		29E8240B189117F300408841 /* GeneralSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29E8240A189117F300408841 /* GeneralSearchViewController.m */; };
 		29E8CDC5187AB90C00B59EC8 /* compass.png in Resources */ = {isa = PBXBuildFile; fileRef = 29E8CDC3187AB90C00B59EC8 /* compass.png */; };
 		29E8CDC6187AB90C00B59EC8 /* compass@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 29E8CDC4187AB90C00B59EC8 /* compass@2x.png */; };
 		29E8CDCD187ABB6D00B59EC8 /* flag.png in Resources */ = {isa = PBXBuildFile; fileRef = 29E8CDC7187ABB6D00B59EC8 /* flag.png */; };
@@ -79,6 +81,11 @@
 		29DDC01D187EE7F100364A04 /* ClosestRoomHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClosestRoomHelper.m; sourceTree = "<group>"; };
 		29DF12ED1885242000967E37 /* wheelchair.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wheelchair.png; sourceTree = "<group>"; };
 		29DF12EE1885242000967E37 /* wheelchair@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wheelchair@2x.png"; sourceTree = "<group>"; };
+		29E824071891165C00408841 /* GeneralSearchView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GeneralSearchView.xib; sourceTree = "<group>"; };
+		29E82409189117F300408841 /* GeneralSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeneralSearchViewController.h; sourceTree = "<group>"; };
+		29E8240A189117F300408841 /* GeneralSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneralSearchViewController.m; sourceTree = "<group>"; };
+		29E8240C1891180400408841 /* GeneralSearchViewDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeneralSearchViewDelegate.h; sourceTree = "<group>"; };
+		29E8240D18911AFF00408841 /* GeneralSearchViewItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeneralSearchViewItem.h; sourceTree = "<group>"; };
 		29E8CDC3187AB90C00B59EC8 /* compass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = compass.png; sourceTree = "<group>"; };
 		29E8CDC4187AB90C00B59EC8 /* compass@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "compass@2x.png"; sourceTree = "<group>"; };
 		29E8CDC7187ABB6D00B59EC8 /* flag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flag.png; sourceTree = "<group>"; };
@@ -171,6 +178,18 @@
 				29DDC01D187EE7F100364A04 /* ClosestRoomHelper.m */,
 			);
 			name = helpers;
+			sourceTree = "<group>";
+		};
+		29E824061891164000408841 /* GeneralSearchView */ = {
+			isa = PBXGroup;
+			children = (
+				29E824071891165C00408841 /* GeneralSearchView.xib */,
+				29E82409189117F300408841 /* GeneralSearchViewController.h */,
+				29E8240A189117F300408841 /* GeneralSearchViewController.m */,
+				29E8240C1891180400408841 /* GeneralSearchViewDelegate.h */,
+				29E8240D18911AFF00408841 /* GeneralSearchViewItem.h */,
+			);
+			name = GeneralSearchView;
 			sourceTree = "<group>";
 		};
 		29F7D8331876BE7900FF997A = {
@@ -356,6 +375,7 @@
 		29F7D8671876C44900FF997A /* shared */ = {
 			isa = PBXGroup;
 			children = (
+				29E824061891164000408841 /* GeneralSearchView */,
 				29CC771618804A4F007076C2 /* ChangeFloorListCell.m */,
 				29CC771518804A48007076C2 /* ChangeFloorListCell.h */,
 				29DDC015187EA34600364A04 /* DeviceLocationMarkingLayer.h */,
@@ -456,6 +476,7 @@
 				29CC771418804A3B007076C2 /* ChangeFloorCell.xib in Resources */,
 				29DF12EF1885242000967E37 /* wheelchair.png in Resources */,
 				29DF12F01885242000967E37 /* wheelchair@2x.png in Resources */,
+				29E824081891165C00408841 /* GeneralSearchView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -484,6 +505,7 @@
 				29DDC01E187EE7F100364A04 /* ClosestRoomHelper.m in Sources */,
 				29CC77111880417D007076C2 /* ChangeFloorViewController.m in Sources */,
 				29CC771718804A4F007076C2 /* ChangeFloorListCell.m in Sources */,
+				29E8240B189117F300408841 /* GeneralSearchViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

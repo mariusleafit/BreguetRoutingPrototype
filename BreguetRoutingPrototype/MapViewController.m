@@ -14,6 +14,7 @@
 #import "FloorMarkingLayer.h"
 #import "ClosestRoomHelper.h"
 #import "ChangeFloorViewController.h"
+#import "GeneralSearchViewController.h"
 
 #define DLG_CURRENT_FLOOR 1
 #define DLG_ROOM 2
@@ -36,6 +37,8 @@
 
 @property (nonatomic) AGSGraphicsLayer *currentRoomMarkingLayer;
 @property (nonatomic) AGSSimpleFillSymbol *roomMarkingSymbol;
+
+
 @end
 
 
@@ -69,9 +72,6 @@
     //init gps
     self.gpsDataSource = [[AGSCLLocationManagerLocationDisplayDataSource alloc] init];
     self.gpsDataSource.delegate = self;
-    
-    //nitialize gui components
-    self.searchBar.delegate = self;
     
     self.roomMarkingSymbol = [AGSSimpleFillSymbol simpleFillSymbolWithColor:nil outlineColor:[UIColor blueColor]];
     self.roomMarkingSymbol.outline.width = 3;
@@ -177,14 +177,6 @@
     
 }
 
-#pragma mark UISearchBarDelegate
--(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
-    [self.view endEditing:YES];
-    //show select destination view
-    UIStoryboard *destinationStoryboard = [UIStoryboard storyboardWithName:@"destination" bundle:nil];
-    DestinationViewController  *destinationViewController = [destinationStoryboard instantiateViewControllerWithIdentifier:@"destination"];
-    [self.appDelegate.navigationController pushViewController:destinationViewController animated:YES];
-}
 
 #pragma mark AGSLocationDisplayDataSourceDelegate
 
@@ -288,6 +280,11 @@ UIAlertView *gpsAlertView;
     }
 }
 
+#pragma mark GeneralSearchViewDelegate
+-(void)generalSearchView:(GeneralSearchViewController *)viewController itemSelected:(id<GeneralSearchViewItem>)selection {
+    
+}
+
 #pragma mark IBAction
 
 - (IBAction)routeClick:(id)sender {
@@ -321,5 +318,42 @@ UIAlertView *gpsAlertView;
     
 }
 - (IBAction)settingsClick:(id)sender {
+}
+- (IBAction)txtStartClick:(id)sender {
+    [self.view endEditing:YES];
+    
+    Room *room1 = [[Room alloc] init];
+    Room *room2 = [[Room alloc] init];
+    Room *room3 = [[Room alloc] init];
+    Room *room4 = [[Room alloc] init];
+    Room *room5 = [[Room alloc] init];
+    Room *room6 = [[Room alloc] init];
+    
+    room1.name = @"hans";
+    room1.occupants = @"hans";
+    room2.name = @"marius";
+    room2.occupants = @"hans";
+    room3.name = @"peter";
+    room3.occupants = @"hans";
+    room4.name = @"horst";
+    room4.occupants = @"hans";
+    room5.name = @"mjdjd";
+    room5.occupants = @"hans";
+    room6.name = @"123";
+    room6.occupants = @"hans";
+    
+    NSArray *rooms = [NSArray arrayWithObjects:room1,room2,room3,room4,room5,room6, nil];
+    
+    GeneralSearchViewController *searchView = [[GeneralSearchViewController alloc] initWith:rooms cellStyle:UITableViewCellStyleSubtitle delegate:self];
+    
+    [self.navigationController pushViewController:searchView animated:YES];
+    /*[self.view endEditing:YES];
+    //show select destination view
+    UIStoryboard *destinationStoryboard = [UIStoryboard storyboardWithName:@"destination" bundle:nil];
+    DestinationViewController  *destinationViewController = [destinationStoryboard instantiateViewControllerWithIdentifier:@"destination"];
+    [self.appDelegate.navigationController pushViewController:destinationViewController animated:YES];*/
+}
+
+- (IBAction)txtEndClick:(id)sender {
 }
 @end

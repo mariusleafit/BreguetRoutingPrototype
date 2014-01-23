@@ -36,4 +36,14 @@
     return returnRoom;
 }
 
+
+#pragma mark GeneralSearchViewItem
+-(NSString *)title {
+    return self.name;
+}
+
+-(NSString *)detail {
+    return self.occupants;
+}
+
 @end

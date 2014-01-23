@@ -8,11 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import "Floor.h"
+#import "GeneralSearchViewItem.h"
 
 @class Floor;
 @class Building;
 
-@interface Room : NSObject {
+@interface Room : NSObject<GeneralSearchViewItem> {
     
 }
 
