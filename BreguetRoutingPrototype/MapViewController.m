@@ -9,19 +9,28 @@
 #import "MapViewController.h"
 #import "Constants.h"
 #import "AppDelegate.h"
-#import "DestinationViewController.h"
 #import "DeviceLocationMarkingLayer.h"
 #import "FloorMarkingLayer.h"
 #import "ClosestRoomHelper.h"
-#import "ChangeFloorViewController.h"
 #import "GeneralSearchViewController.h"
+#import "BasicListSelectorViewController.h"
+#import "RoomsFromFloorQuery.h"
+#import "RouteBetweenRooms.h"
 
 #define DLG_CURRENT_FLOOR 1
 #define DLG_ROOM 2
 #define DLG_LOAD_POSITION 3
 
+#define LIST_CHANGEFLOOR @"changefloor"
+
 #define IDENTIFY_ROOM @"identifyRoom"
 #define NORMAL_FLOOR_CHANGE @"normal"
+
+#define FLOORSSTART @"floorsstart"
+#define FLOORSEND @"floorsend"
+
+#define SEARCHSTARTROOM 2
+#define SEARCHENDROOM 1
 
 @interface MapViewController ()
 @property (nonatomic) AGSTiledMapServiceLayer *streetBasemap;
@@ -36,9 +45,19 @@
 
 
 @property (nonatomic) AGSGraphicsLayer *currentRoomMarkingLayer;
-@property (nonatomic) AGSSimpleFillSymbol *roomMarkingSymbol;
 
+@property (nonatomic) RoomsFromFloorQuery *roomsQuery;
 
+@property (nonatomic) Room *startRoom;
+@property (nonatomic) Room *endRoom;
+
+@property (nonatomic) RouteBetweenRooms *routeBetweenRooms;
+@property (nonatomic) UIAlertView *routingWaitDialog;
+
+@property (nonatomic) AGSGraphicsLayer *routeGraphicsLayer;
+@property (nonatomic) AGSGraphicsLayer *roomGraphicsLayer;
+
+@property (nonatomic) NSMutableArray *routeInstructions;
 @end
 
 
@@ -68,13 +87,6 @@
     
     self.map.layerDelegate = self;
     self.map.touchDelegate = self;
-    
-    //init gps
-    self.gpsDataSource = [[AGSCLLocationManagerLocationDisplayDataSource alloc] init];
-    self.gpsDataSource.delegate = self;
-    
-    self.roomMarkingSymbol = [AGSSimpleFillSymbol simpleFillSymbolWithColor:nil outlineColor:[UIColor blueColor]];
-    self.roomMarkingSymbol.outline.width = 3;
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -85,6 +97,41 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark helper methods
+-(AGSSimpleFillSymbol *)roomMarkingSymbol:(bool)start {
+    UIColor *lineColor = [UIColor blueColor];
+    if(!start) {
+        lineColor = [UIColor greenColor];
+    }
+    AGSSimpleFillSymbol *roomMarkingSymbol = [AGSSimpleFillSymbol simpleFillSymbolWithColor:nil outlineColor:lineColor];
+    roomMarkingSymbol.outline.width = 3;
+    return roomMarkingSymbol;
+}
+
+-(void)markStartAndEndRoom {
+    //reset room graphics layer
+    if(self.roomGraphicsLayer) {
+        [self.map removeMapLayer:self.roomGraphicsLayer];
+    }
+    self.roomGraphicsLayer = [[AGSGraphicsLayer alloc] init];
+    [self.map addMapLayer:self.roomGraphicsLayer];
+    
+    if(self.startRoom) {
+        AGSPolygon* geometry = (AGSPolygon *)[[AGSGeometryEngine defaultGeometryEngine]projectGeometry:self.startRoom.polygon toSpatialReference:[Constants BASEMAP_SPATIALREFERENCE]];
+        
+        AGSGraphic *roomMarker = [AGSGraphic graphicWithGeometry:geometry symbol:[self roomMarkingSymbol:true] attributes:nil infoTemplateDelegate:nil];
+        
+        [self.roomGraphicsLayer addGraphic:roomMarker];
+    }
+    if(self.endRoom) {
+        AGSPolygon* geometry = (AGSPolygon *)[[AGSGeometryEngine defaultGeometryEngine]projectGeometry:self.endRoom.polygon toSpatialReference:[Constants BASEMAP_SPATIALREFERENCE]];
+        
+        AGSGraphic *roomMarker = [AGSGraphic graphicWithGeometry:geometry symbol:[self roomMarkingSymbol:false] attributes:nil infoTemplateDelegate:nil];
+        
+        [self.roomGraphicsLayer addGraphic:roomMarker];
+    }
 }
 
 #pragma mark AGSMapViewLayerDelegate
@@ -103,36 +150,18 @@
     [self.map zoomToEnvelope:projectedPolygon animated:NO];
 }
 
-#pragma mark ChangeFloorViewDelegate
-//gets called when user changed the visible floors
--(void)changeFloorView:(ChangeFloorViewController *)viewController visibleFloorsDidChange:(NSArray *)visibleFloors {
+#pragma mark BasicListSelectorDelegate
+
+
+-(void)BasicList:(NSString *)identifier selectionChanged:(id<BasicListSelectorItem>)selection {
+    //change visible floor
+    [self.breguet changeVisibleFloorsWithFloors:[NSArray arrayWithObject:selection]];
+    [self updateVisibleFloorsOfBuilding:self.breguet];
     
-    //if floor changed to get the current room
-    if([viewController.identifier isEqualToString:IDENTIFY_ROOM]) {
-        //change floors on map
-        //is at least one floor visible?
-        if([visibleFloors count] > 0) {
-            [self.breguet changeVisibleFloorsWithFloorCode:[visibleFloors objectAtIndex:0]];
-        } else {
-            //set visibility back to default
-            [self.breguet resetFloorVisibility];
-        }
-        [self updateVisibleFloorsOfBuilding:self.breguet];
-        
-        //start gps to try to get the current room
-        [self.gpsDataSource start];
-    } else if([viewController.identifier isEqualToString:NORMAL_FLOOR_CHANGE]) {
-        //change floors on map
-        
-        //is at least one floor visible?
-        if([visibleFloors count] > 0) {
-            [self.breguet changeVisibleFloorsWithFloors:visibleFloors];
-        } else {
-            //set visibility back to default
-            [self.breguet resetFloorVisibility];
-        }
-        [self updateVisibleFloorsOfBuilding:self.breguet];
-    }
+    //resetz of txtStart & txtEnd
+    self.txtStart.text = @"";
+    self.txtEnd.text = @"";
+    [self.routeGraphicsLayer removeAllGraphics];
 }
 
 #pragma mark ChangeEtageManagement
@@ -155,205 +184,146 @@
     //open changeFloorView if tap on building
     Building *clickedBuilding = [self.appDelegate.buildingStack getBuildingWithPoint:mappoint andSpatialReference:[Constants BASEMAP_SPATIALREFERENCE]];
     if(clickedBuilding) {
-        //show changeFloorView
-        ChangeFloorViewController *changeFloorView = [[ChangeFloorViewController alloc] initWithNibName:@"ChangeFloor" bundle:nil Identifier:NORMAL_FLOOR_CHANGE Building:clickedBuilding delegate:self];
-        [self.navigationController pushViewController:changeFloorView animated:YES];
+        
+        Floor *currentFloor = [[clickedBuilding getVisibleFloors] objectAtIndex:0];
+        
+        BasicListSelectorViewController *listController = [[BasicListSelectorViewController alloc] initWithIdentifier:LIST_CHANGEFLOOR data:[clickedBuilding getFloors] selectedItem:currentFloor  delegate:self cellStyle:UITableViewCellStyleDefault];
+        [self.navigationController pushViewController:listController animated:YES];
     }
 }
 
 -(void)mapView:(AGSMapView *)mapView didClickAtPoint:(CGPoint)screen mapPoint:(AGSPoint *)mappoint graphics:(NSDictionary *)graphics {
-#pragma mark todo
-    AGSGraphic *clickedRoom = [[[graphics allValues]objectAtIndex:0] objectAtIndex:0];
-    if(clickedRoom) {
-        //mark Room
-        if(self.currentRoomMarkingLayer) {
-            [self.map removeMapLayer:self.currentRoomMarkingLayer];
-        }
-        
-        self.currentRoomMarkingLayer = [[AGSGraphicsLayer alloc] init];
-        [self.map addMapLayer:self.currentRoomMarkingLayer];
-        [self.currentRoomMarkingLayer addGraphic:[AGSGraphic graphicWithGeometry:clickedRoom.geometry symbol:self.roomMarkingSymbol attributes:nil infoTemplateDelegate:nil]];
-    }
+
     
 }
 
 
-#pragma mark AGSLocationDisplayDataSourceDelegate
-
-int gpsCounter;
-UIAlertView *gpsAlertView;
--(void)locationDisplayDataSource:(id<AGSLocationDisplayDataSource>)dataSource didUpdateWithLocation:(AGSLocation *)location {
-    //wait a while to let the device find his correct position
-    if(gpsCounter == 5) {
-        
-        //**mark Building
-        Floor *currentFloor = [[self.breguet getVisibleFloors] objectAtIndex:0];
-        AGSFeatureLayer *breguetLayer = (AGSFeatureLayer *)[self.map mapLayerForName:[[currentFloor getFloorURL] absoluteString]];
-        
-        /*self.floorMarkingLayer = [[FloorMarkingLayer alloc] initWithFeatureLayer:breguetLayer];
-         [self.map addMapLayer:self.floorMarkingLayer withName:@"floorMarkingLayer"];*/
-        
-        AGSGraphic *closestRoom = [ClosestRoomHelper getClosestRoom:location.point inCircle:self.deviceLocationLayer.accuracyCircle onFeatureLayer:breguetLayer];
-        
-        if(closestRoom) {
-            //mark closes Room
-            if(self.currentRoomMarkingLayer) {
-                [self.map removeMapLayer:self.currentRoomMarkingLayer];
-            }
-            
-            self.currentRoomMarkingLayer = [[AGSGraphicsLayer alloc] init];
-            [self.map addMapLayer:self.currentRoomMarkingLayer];
-            [self.currentRoomMarkingLayer addGraphic:[AGSGraphic graphicWithGeometry:closestRoom.geometry symbol:self.roomMarkingSymbol attributes:nil infoTemplateDelegate:nil]];
-            
-            //get roomName
-            NSString *closestRoomName = [closestRoom attributeAsStringForKey:@"LOC_CODE"];
-            
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Étage" message:[NSString stringWithFormat:@"Vous-êtez dans le local '%@'?.",closestRoomName] delegate:self cancelButtonTitle:@"Non" otherButtonTitles:@"Oui",nil];
-            alertView.tag = DLG_ROOM;
-            [alertView show];
-        }
-        
-        [self.gpsDataSource stop];
-        [gpsAlertView dismissWithClickedButtonIndex:0 animated:TRUE];
-    } else {
-        //show loading dialog
-        if(gpsCounter == 0) {
-            gpsAlertView = [[UIAlertView alloc] initWithTitle:@"Chercher la position..." message:@""
-                                                     delegate:self
-                                            cancelButtonTitle:@"Annuler"
-                                            otherButtonTitles:nil];
-            gpsAlertView.tag = DLG_LOAD_POSITION;
-            [gpsAlertView show];
-        }
-        //project point
-        [self.deviceLocationLayer setGPSLocation:location withSpatialReference:[Constants BASEMAP_SPATIALREFERENCE]];
+#pragma mark MultipleRoomsQueryDelegate
+-(void)roomQueryRoomsFound:(NSArray *)rooms andQueryName:(NSString *)queryName {
+    if([queryName isEqualToString:FLOORSSTART]) {
+        GeneralSearchViewController *searchView = [[GeneralSearchViewController alloc] initWith:rooms cellStyle:UITableViewCellStyleSubtitle delegate:self];
+        searchView.identifier = SEARCHSTARTROOM;
+        [self.navigationController pushViewController:searchView animated:YES];
+    } else if([queryName isEqualToString:FLOORSEND]) {
+        GeneralSearchViewController *searchView = [[GeneralSearchViewController alloc] initWith:rooms cellStyle:UITableViewCellStyleSubtitle delegate:self];
+        searchView.identifier = SEARCHENDROOM;
+        [self.navigationController pushViewController:searchView animated:YES];
     }
-    gpsCounter++;
 }
 
--(void)locationDisplayDataSource:(id<AGSLocationDisplayDataSource>)dataSource didFailWithError:(NSError *)error {
-    
-}
-
--(void)locationDisplayDataSource:(id<AGSLocationDisplayDataSource>)dataSource didUpdateWithHeading:(double)heading {
-    
-}
-
--(void)locationDisplayDataSourceStarted:(id<AGSLocationDisplayDataSource>)dataSource {
-    gpsCounter = 0;
-}
-
--(void)locationDisplayDataSourceStopped:(id<AGSLocationDisplayDataSource>)dataSource {
-    //[self.map removeMapLayerWithName:@"floorMarkingLayer"];
-}
-
-#pragma mark UIAlertViewDelegate
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    ChangeFloorViewController *changeFloorView;
-    UIAlertView *localAlertView;
-    switch(alertView.tag) {
-        case DLG_CURRENT_FLOOR:
-            switch(buttonIndex) {
-                case 0://NON
-                    //show changeFloorView
-                    changeFloorView = [[ChangeFloorViewController alloc] initWithNibName:@"ChangeFloor" bundle:nil Identifier:IDENTIFY_ROOM Building:self.breguet delegate:self];
-                    [self.navigationController pushViewController:changeFloorView animated:YES];
-                    break;
-                case 1://OUI
-                    [self.gpsDataSource start];
-                    break;
-            }
-            break;
-        case DLG_ROOM:
-            switch(buttonIndex) {
-                case 0:
-                     localAlertView = [[UIAlertView alloc] initWithTitle:@"Local" message:[NSString stringWithFormat:@"Choisisez le local à la main."] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                    [localAlertView show];
-                    [self.deviceLocationLayer clear];
-                    break;
-            }
-            break;
-        case DLG_LOAD_POSITION:
-            [self.gpsDataSource stop];
-            [self.deviceLocationLayer clear];
-            break;
-    }
+-(void)roomQueryErrorOccured:(NSString *)queryName {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Impossible de charger les locaux" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
 }
 
 #pragma mark GeneralSearchViewDelegate
+
+
 -(void)generalSearchView:(GeneralSearchViewController *)viewController itemSelected:(id<GeneralSearchViewItem>)selection {
+    bool start = true;
     
+    if(viewController.identifier == SEARCHSTARTROOM) {
+        self.txtStart.text = [selection title];
+        self.startRoom = selection;
+    } else if(viewController.identifier == SEARCHENDROOM) {
+        self.txtEnd.text = [selection title];
+        self.endRoom = selection;
+        start = false;
+    }
+    
+    //mark room
+    [self markStartAndEndRoom];
+}
+
+#pragma mark RouteBetweenRoomsDelegate
+- (AGSSimpleLineSymbol*)routeSymbol {
+	
+	AGSSimpleLineSymbol *sls1 = [AGSSimpleLineSymbol simpleLineSymbol];
+	sls1.color = [UIColor redColor];
+	sls1.style = AGSSimpleLineSymbolStyleSolid;
+	sls1.width = 2;
+	
+	
+	return sls1;
+}
+
+-(void)routeBetweenRooms:(RouteBetweenRooms *)route errorOccured:(NSError *)error {
+    if(self.routingWaitDialog) {
+        [self.routingWaitDialog dismissWithClickedButtonIndex:0 animated:YES];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Impossible à calculer la route" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+    }
+}
+
+-(void)routeBetweenRooms:(RouteBetweenRooms *)route gotResult:(AGSRouteResult *)result {
+    if(result) {
+        AGSPolyline *pl = (AGSPolyline *)[[AGSGeometryEngine defaultGeometryEngine]projectGeometry:result.routeGraphic.geometry toSpatialReference:[Constants BASEMAP_SPATIALREFERENCE]];
+        
+        AGSGraphic *line = [AGSGraphic graphicWithGeometry:pl symbol:[self routeSymbol] attributes:nil infoTemplateDelegate:nil];
+        
+        // add the route graphic to the graphic's layer
+		if(self.routeGraphicsLayer) {
+            [self.map removeMapLayer:self.routeGraphicsLayer];
+        }
+        self.routeGraphicsLayer = [[AGSGraphicsLayer alloc] init];
+        [self.map addMapLayer:self.routeGraphicsLayer];
+        [self.routeGraphicsLayer addGraphic:line];
+        
+        //save routing instructions
+        self.routeInstructions = [[NSMutableArray alloc] init];
+        if(result.directions != nil) {
+            for (AGSDirectionGraphic *graphic in result.directions.graphics ) {
+                [self.routeInstructions addObject:[graphic attributeAsStringForKey:@"text"]];
+            }
+        }
+        
+        //dismiss waiting dialog
+        if(self.routingWaitDialog) {
+            [self.routingWaitDialog dismissWithClickedButtonIndex:0 animated:YES];
+        }
+    }
 }
 
 #pragma mark IBAction
 
 - (IBAction)routeClick:(id)sender {
-}
-- (IBAction)gpsClick:(id)sender {
-    //add deviceposition layer
-    if(self.deviceLocationLayer) {
-        [self.map removeMapLayer:self.deviceLocationLayer];
-    }
-    //add locationmarkerlayer
-    self.deviceLocationLayer = [[DeviceLocationMarkingLayer alloc] init];
-    [self.map addMapLayer:self.deviceLocationLayer withName:@"deviceLocationMarkingLayer"];
-    
-    //remove gps & room marker
-    [self.currentRoomMarkingLayer removeAllGraphics];
-    [self.deviceLocationLayer clear];
-    
-    
-    //get currently visible floor
-    Floor *currentFloor = [[self.breguet getVisibleFloors] objectAtIndex:0];
-    
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Étage" message:[NSString stringWithFormat:@"Vous-êtez sur l'étage '%@'?.",currentFloor.floorName] delegate:self cancelButtonTitle:@"Non" otherButtonTitles:@"Oui",nil];
-    alertView.tag = DLG_CURRENT_FLOOR;
-    [alertView show];
-}
-- (IBAction)choosePoint:(id)sender {
-    [self.map.locationDisplay stopDataSource];
-    if(self.map.locationDisplay.mapLocation) {
+    if(self.startRoom && self.endRoom) {
+        //show waiting dialog
+        self.routingWaitDialog = [[UIAlertView alloc] initWithTitle:@"Charger..." message:nil delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];
+        [self.routingWaitDialog show];
+        
+        self.routeBetweenRooms = [[RouteBetweenRooms alloc] initWithRooms:[NSArray arrayWithObjects:self.startRoom,self.endRoom, nil] delegate:self];
+        [self.routeBetweenRooms execute];
+    } else {
         
     }
-    
 }
-- (IBAction)settingsClick:(id)sender {
-}
+
+
 - (IBAction)txtStartClick:(id)sender {
     [self.view endEditing:YES];
     
-    Room *room1 = [[Room alloc] init];
-    Room *room2 = [[Room alloc] init];
-    Room *room3 = [[Room alloc] init];
-    Room *room4 = [[Room alloc] init];
-    Room *room5 = [[Room alloc] init];
-    Room *room6 = [[Room alloc] init];
+    //get rooms of current floor
+    Floor *currentFloor = [[self.breguet getVisibleFloors] objectAtIndex:0];
+    self.roomsQuery = [[RoomsFromFloorQuery alloc] initWithFloor:currentFloor andName:FLOORSSTART andDelegate:self];
     
-    room1.name = @"hans";
-    room1.occupants = @"hans";
-    room2.name = @"marius";
-    room2.occupants = @"hans";
-    room3.name = @"peter";
-    room3.occupants = @"hans";
-    room4.name = @"horst";
-    room4.occupants = @"hans";
-    room5.name = @"mjdjd";
-    room5.occupants = @"hans";
-    room6.name = @"123";
-    room6.occupants = @"hans";
-    
-    NSArray *rooms = [NSArray arrayWithObjects:room1,room2,room3,room4,room5,room6, nil];
-    
-    GeneralSearchViewController *searchView = [[GeneralSearchViewController alloc] initWith:rooms cellStyle:UITableViewCellStyleSubtitle delegate:self];
-    
-    [self.navigationController pushViewController:searchView animated:YES];
-    /*[self.view endEditing:YES];
-    //show select destination view
-    UIStoryboard *destinationStoryboard = [UIStoryboard storyboardWithName:@"destination" bundle:nil];
-    DestinationViewController  *destinationViewController = [destinationStoryboard instantiateViewControllerWithIdentifier:@"destination"];
-    [self.appDelegate.navigationController pushViewController:destinationViewController animated:YES];*/
+    [self.roomsQuery execute];
 }
 
 - (IBAction)txtEndClick:(id)sender {
+    [self.view endEditing:YES];
+    
+    //get rooms of current floor
+    Floor *currentFloor = [[self.breguet getVisibleFloors] objectAtIndex:0];
+    self.roomsQuery = [[RoomsFromFloorQuery alloc] initWithFloor:currentFloor andName:FLOORSEND andDelegate:self];
+    
+    [self.roomsQuery execute];
+}
+
+- (IBAction)showRoute:(id)sender {
+    if(self.routeInstructions.count > 0) {
+        BasicListSelectorViewController *basicList = [[BasicListSelectorViewController alloc] initWithIdentifier:@"" data:self.routeInstructions selectedItem:nil delegate:nil cellStyle:UITableViewCellStyleDefault];
+        [self.navigationController pushViewController:basicList animated:YES];
+    }
 }
 @end

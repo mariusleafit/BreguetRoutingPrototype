@@ -12,7 +12,7 @@
 @interface GeneralSearchViewController : UIViewController<UISearchDisplayDelegate,UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (weak, nonatomic) IBOutlet UITableView *list;
-@property (nonatomic) int *identifier;
+@property (nonatomic) int identifier;
 
 /**data: array of id<GeneralSearchViewItems>**/
 -(id)initWith:(NSArray *)data cellStyle:(UITableViewCellStyle)cellStyle delegate:(id<GeneralSearchViewDelegate>)delegate;

@@ -8,10 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import <ArcGIS/ArcGIS.h>
+#import "BasicListSelectorItem.h"
 
 @class Building;
 
-@interface Floor : NSObject {
+@interface Floor : NSObject<BasicListSelectorItem> {
     NSNumber* visibility;
 }
 

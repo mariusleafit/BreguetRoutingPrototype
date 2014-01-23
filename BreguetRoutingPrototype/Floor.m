@@ -81,4 +81,13 @@
     return [visibility boolValue];
 }
 
+#pragma mark BasicListSelectorItem
+
+-(NSString *)toString {
+    return self.floorName;
+}
+
+-(NSString *)detailString {
+    return @"";
+}
 @end

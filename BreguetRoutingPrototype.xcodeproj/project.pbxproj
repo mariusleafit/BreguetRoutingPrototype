@@ -18,6 +18,11 @@
 		29DF12F01885242000967E37 /* wheelchair@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 29DF12EE1885242000967E37 /* wheelchair@2x.png */; };
 		29E824081891165C00408841 /* GeneralSearchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29E824071891165C00408841 /* GeneralSearchView.xib */; };
 		29E8240B189117F300408841 /* GeneralSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29E8240A189117F300408841 /* GeneralSearchViewController.m */; };
+		29E82414189131DD00408841 /* BasicListSelector.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29E8240F189131DD00408841 /* BasicListSelector.xib */; };
+		29E82415189131DD00408841 /* BasicListSelectorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29E82413189131DD00408841 /* BasicListSelectorViewController.m */; };
+		29E82419189149A100408841 /* RoomsFromFloorQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 29E82418189149A100408841 /* RoomsFromFloorQuery.m */; };
+		29E8241D189156AF00408841 /* RouteBetweenRooms.m in Sources */ = {isa = PBXBuildFile; fileRef = 29E8241C189156AF00408841 /* RouteBetweenRooms.m */; };
+		29E82422189160CC00408841 /* AGSRoomLocator.m in Sources */ = {isa = PBXBuildFile; fileRef = 29E82421189160CC00408841 /* AGSRoomLocator.m */; };
 		29E8CDC5187AB90C00B59EC8 /* compass.png in Resources */ = {isa = PBXBuildFile; fileRef = 29E8CDC3187AB90C00B59EC8 /* compass.png */; };
 		29E8CDC6187AB90C00B59EC8 /* compass@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 29E8CDC4187AB90C00B59EC8 /* compass@2x.png */; };
 		29E8CDCD187ABB6D00B59EC8 /* flag.png in Resources */ = {isa = PBXBuildFile; fileRef = 29E8CDC7187ABB6D00B59EC8 /* flag.png */; };
@@ -26,11 +31,6 @@
 		29E8CDD0187ABB6D00B59EC8 /* gps@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 29E8CDCA187ABB6D00B59EC8 /* gps@2x.png */; };
 		29E8CDD1187ABB6D00B59EC8 /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 29E8CDCB187ABB6D00B59EC8 /* settings.png */; };
 		29E8CDD2187ABB6D00B59EC8 /* settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 29E8CDCC187ABB6D00B59EC8 /* settings@2x.png */; };
-		29E8CDD5187AC2C300B59EC8 /* DestinationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29E8CDD4187AC2C300B59EC8 /* DestinationViewController.m */; };
-		29E8CDD9187AEDE000B59EC8 /* destination.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29E8CDD8187AEDE000B59EC8 /* destination.storyboard */; };
-		29E8CDDF187AEFA200B59EC8 /* FloorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29E8CDDE187AEFA200B59EC8 /* FloorsViewController.m */; };
-		29E8CDE2187AEFFB00B59EC8 /* RoomsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29E8CDE1187AEFFB00B59EC8 /* RoomsViewController.m */; };
-		29E8CDE5187AF11400B59EC8 /* OccupantsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29E8CDE4187AF11400B59EC8 /* OccupantsViewController.m */; };
 		29F7D8401876BE7900FF997A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29F7D83F1876BE7900FF997A /* UIKit.framework */; };
 		29F7D8421876BE7900FF997A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29F7D8411876BE7900FF997A /* Foundation.framework */; };
 		29F7D8441876BE7900FF997A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29F7D8431876BE7900FF997A /* CoreGraphics.framework */; };
@@ -86,6 +86,19 @@
 		29E8240A189117F300408841 /* GeneralSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneralSearchViewController.m; sourceTree = "<group>"; };
 		29E8240C1891180400408841 /* GeneralSearchViewDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeneralSearchViewDelegate.h; sourceTree = "<group>"; };
 		29E8240D18911AFF00408841 /* GeneralSearchViewItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeneralSearchViewItem.h; sourceTree = "<group>"; };
+		29E8240F189131DD00408841 /* BasicListSelector.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BasicListSelector.xib; sourceTree = "<group>"; };
+		29E82410189131DD00408841 /* BasicListSelectorDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicListSelectorDelegate.h; sourceTree = "<group>"; };
+		29E82411189131DD00408841 /* BasicListSelectorItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicListSelectorItem.h; sourceTree = "<group>"; };
+		29E82412189131DD00408841 /* BasicListSelectorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicListSelectorViewController.h; sourceTree = "<group>"; };
+		29E82413189131DD00408841 /* BasicListSelectorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasicListSelectorViewController.m; sourceTree = "<group>"; };
+		29E82417189149A100408841 /* RoomsFromFloorQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoomsFromFloorQuery.h; sourceTree = "<group>"; };
+		29E82418189149A100408841 /* RoomsFromFloorQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoomsFromFloorQuery.m; sourceTree = "<group>"; };
+		29E8241A189149BD00408841 /* MultipleRoomsQueryDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultipleRoomsQueryDelegate.h; sourceTree = "<group>"; };
+		29E8241B189156AF00408841 /* RouteBetweenRooms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteBetweenRooms.h; sourceTree = "<group>"; };
+		29E8241C189156AF00408841 /* RouteBetweenRooms.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteBetweenRooms.m; sourceTree = "<group>"; };
+		29E8241E189157BC00408841 /* RouteBetweenRoomsDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RouteBetweenRoomsDelegate.h; sourceTree = "<group>"; };
+		29E82420189160CC00408841 /* AGSRoomLocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGSRoomLocator.h; sourceTree = "<group>"; };
+		29E82421189160CC00408841 /* AGSRoomLocator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGSRoomLocator.m; sourceTree = "<group>"; };
 		29E8CDC3187AB90C00B59EC8 /* compass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = compass.png; sourceTree = "<group>"; };
 		29E8CDC4187AB90C00B59EC8 /* compass@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "compass@2x.png"; sourceTree = "<group>"; };
 		29E8CDC7187ABB6D00B59EC8 /* flag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flag.png; sourceTree = "<group>"; };
@@ -94,15 +107,6 @@
 		29E8CDCA187ABB6D00B59EC8 /* gps@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gps@2x.png"; sourceTree = "<group>"; };
 		29E8CDCB187ABB6D00B59EC8 /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
 		29E8CDCC187ABB6D00B59EC8 /* settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings@2x.png"; sourceTree = "<group>"; };
-		29E8CDD3187AC2C300B59EC8 /* DestinationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DestinationViewController.h; sourceTree = "<group>"; };
-		29E8CDD4187AC2C300B59EC8 /* DestinationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DestinationViewController.m; sourceTree = "<group>"; };
-		29E8CDD8187AEDE000B59EC8 /* destination.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = destination.storyboard; sourceTree = "<group>"; };
-		29E8CDDD187AEFA200B59EC8 /* FloorsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FloorsViewController.h; sourceTree = "<group>"; };
-		29E8CDDE187AEFA200B59EC8 /* FloorsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FloorsViewController.m; sourceTree = "<group>"; };
-		29E8CDE0187AEFFB00B59EC8 /* RoomsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoomsViewController.h; sourceTree = "<group>"; };
-		29E8CDE1187AEFFB00B59EC8 /* RoomsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoomsViewController.m; sourceTree = "<group>"; };
-		29E8CDE3187AF11400B59EC8 /* OccupantsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OccupantsViewController.h; sourceTree = "<group>"; };
-		29E8CDE4187AF11400B59EC8 /* OccupantsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OccupantsViewController.m; sourceTree = "<group>"; };
 		29F7D83C1876BE7900FF997A /* BreguetRoutingPrototype.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BreguetRoutingPrototype.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		29F7D83F1876BE7900FF997A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		29F7D8411876BE7900FF997A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -190,6 +194,30 @@
 				29E8240D18911AFF00408841 /* GeneralSearchViewItem.h */,
 			);
 			name = GeneralSearchView;
+			sourceTree = "<group>";
+		};
+		29E8240E189131DC00408841 /* BasicListSelector */ = {
+			isa = PBXGroup;
+			children = (
+				29E8240F189131DD00408841 /* BasicListSelector.xib */,
+				29E82410189131DD00408841 /* BasicListSelectorDelegate.h */,
+				29E82411189131DD00408841 /* BasicListSelectorItem.h */,
+				29E82412189131DD00408841 /* BasicListSelectorViewController.h */,
+				29E82413189131DD00408841 /* BasicListSelectorViewController.m */,
+			);
+			path = BasicListSelector;
+			sourceTree = "<group>";
+		};
+		29E8241F1891608C00408841 /* RouteBetweenRooms */ = {
+			isa = PBXGroup;
+			children = (
+				29E8241B189156AF00408841 /* RouteBetweenRooms.h */,
+				29E8241C189156AF00408841 /* RouteBetweenRooms.m */,
+				29E8241E189157BC00408841 /* RouteBetweenRoomsDelegate.h */,
+				29E82420189160CC00408841 /* AGSRoomLocator.h */,
+				29E82421189160CC00408841 /* AGSRoomLocator.m */,
+			);
+			name = RouteBetweenRooms;
 			sourceTree = "<group>";
 		};
 		29F7D8331876BE7900FF997A = {
@@ -322,6 +350,10 @@
 		29F7D8621876C40900FF997A /* queries */ = {
 			isa = PBXGroup;
 			children = (
+				29E8241F1891608C00408841 /* RouteBetweenRooms */,
+				29E8241A189149BD00408841 /* MultipleRoomsQueryDelegate.h */,
+				29E82417189149A100408841 /* RoomsFromFloorQuery.h */,
+				29E82418189149A100408841 /* RoomsFromFloorQuery.m */,
 			);
 			name = queries;
 			sourceTree = "<group>";
@@ -340,7 +372,6 @@
 				29CC771318804A3B007076C2 /* ChangeFloorCell.xib */,
 				29CC770D188040FA007076C2 /* ChangeFloor.xib */,
 				29F7D8AD1876D2EF00FF997A /* map.xib */,
-				29E8CDD8187AEDE000B59EC8 /* destination.storyboard */,
 			);
 			name = nibs;
 			sourceTree = "<group>";
@@ -357,14 +388,6 @@
 			children = (
 				29F7D8AA1876D2D600FF997A /* MapViewController.h */,
 				29F7D8AB1876D2D600FF997A /* MapViewController.m */,
-				29E8CDD3187AC2C300B59EC8 /* DestinationViewController.h */,
-				29E8CDD4187AC2C300B59EC8 /* DestinationViewController.m */,
-				29E8CDDD187AEFA200B59EC8 /* FloorsViewController.h */,
-				29E8CDDE187AEFA200B59EC8 /* FloorsViewController.m */,
-				29E8CDE0187AEFFB00B59EC8 /* RoomsViewController.h */,
-				29E8CDE1187AEFFB00B59EC8 /* RoomsViewController.m */,
-				29E8CDE3187AF11400B59EC8 /* OccupantsViewController.h */,
-				29E8CDE4187AF11400B59EC8 /* OccupantsViewController.m */,
 				29CC770F1880417D007076C2 /* ChangeFloorViewController.h */,
 				29CC77101880417D007076C2 /* ChangeFloorViewController.m */,
 				29CC7712188048F4007076C2 /* ChangeFloorViewDelegate.h */,
@@ -375,6 +398,7 @@
 		29F7D8671876C44900FF997A /* shared */ = {
 			isa = PBXGroup;
 			children = (
+				29E8240E189131DC00408841 /* BasicListSelector */,
 				29E824061891164000408841 /* GeneralSearchView */,
 				29CC771618804A4F007076C2 /* ChangeFloorListCell.m */,
 				29CC771518804A48007076C2 /* ChangeFloorListCell.h */,
@@ -471,12 +495,12 @@
 				29E8CDD0187ABB6D00B59EC8 /* gps@2x.png in Resources */,
 				29E8CDD1187ABB6D00B59EC8 /* settings.png in Resources */,
 				29E8CDD2187ABB6D00B59EC8 /* settings@2x.png in Resources */,
-				29E8CDD9187AEDE000B59EC8 /* destination.storyboard in Resources */,
 				29CC770E188040FA007076C2 /* ChangeFloor.xib in Resources */,
 				29CC771418804A3B007076C2 /* ChangeFloorCell.xib in Resources */,
 				29DF12EF1885242000967E37 /* wheelchair.png in Resources */,
 				29DF12F01885242000967E37 /* wheelchair@2x.png in Resources */,
 				29E824081891165C00408841 /* GeneralSearchView.xib in Resources */,
+				29E82414189131DD00408841 /* BasicListSelector.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -496,16 +520,16 @@
 				29F7D8B91876E65400FF997A /* BuildingStack.m in Sources */,
 				29F7D8BE1876E66100FF997A /* Floor.m in Sources */,
 				29F7D8BF1876E66100FF997A /* Room.m in Sources */,
-				29E8CDD5187AC2C300B59EC8 /* DestinationViewController.m in Sources */,
-				29E8CDDF187AEFA200B59EC8 /* FloorsViewController.m in Sources */,
-				29E8CDE2187AEFFB00B59EC8 /* RoomsViewController.m in Sources */,
-				29E8CDE5187AF11400B59EC8 /* OccupantsViewController.m in Sources */,
 				29DDC017187EA34600364A04 /* DeviceLocationMarkingLayer.m in Sources */,
 				29DDC01A187ED6FF00364A04 /* FloorMarkingLayer.m in Sources */,
 				29DDC01E187EE7F100364A04 /* ClosestRoomHelper.m in Sources */,
 				29CC77111880417D007076C2 /* ChangeFloorViewController.m in Sources */,
 				29CC771718804A4F007076C2 /* ChangeFloorListCell.m in Sources */,
 				29E8240B189117F300408841 /* GeneralSearchViewController.m in Sources */,
+				29E82415189131DD00408841 /* BasicListSelectorViewController.m in Sources */,
+				29E82419189149A100408841 /* RoomsFromFloorQuery.m in Sources */,
+				29E8241D189156AF00408841 /* RouteBetweenRooms.m in Sources */,
+				29E82422189160CC00408841 /* AGSRoomLocator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
