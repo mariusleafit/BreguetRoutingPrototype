@@ -90,6 +90,7 @@
     [routingTaskParams setStopsWithFeatures:stops];
     
     
+    
     // this generalizes the route graphics that are returned
     routingTaskParams.outputGeometryPrecision = 5.0;
     routingTaskParams.outputGeometryPrecisionUnits = AGSUnitsMeters;
